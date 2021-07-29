@@ -26,7 +26,7 @@ def color_error_diffusion(image):
     height = image.shape[0]
     width = image.shape[1]
     error = np.zeros((height + 1, width + 1))
-    processed_image = np.zeros((height, width))
+    processed_image = np.zeros((height, width),"uint8")
     for x in range(height):
         for y in range(width):
             processed_image[x,y] = get_closest_level_value(image[x,y])
@@ -45,6 +45,7 @@ if __name__ == '__main__':
     processed_image_g = color_error_diffusion(image_g)
     processed_image_r = color_error_diffusion(image_r)
     merged_image = cv2.merge((processed_image_b,processed_image_g,processed_image_r))
+    #merged_image = merged_image.astype("uint8")
     display_images(image, merged_image)
     filename = 'savedImage.jpg'
     cv2.imwrite(filename, merged_image)
